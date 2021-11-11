@@ -1,0 +1,38 @@
+## COME CREARE UN API
+
+npm init
+npm i express
+npm i axios
+npm install nodemon --save-dev
+
+in index.js :
+1.definire PORT, express e axios (con const + require)
+2.inizializzare express() e metterlo dentro const app
+3.usare app.listen(PORT) per avviare la PORT indicata
+--in package.json definire script "start": "nodemon index.js"
+4.creare GET request ad una route
+
+## EXTRAS
+
+-vediamo come creare una sezione news, dove riceveremo notizie live da altri siti
+
+npm i cheerio
+
+0.definire cheerio, newspapers (i link a cui faremo riferimento) e articles (array vuota)
+1.per ogni obj in newspapers fare axios GET request ad il link corrispondente
+--questo torna una promise, quindi usiamo .then().catch() -async
+2.prendere response.data, che é l'html del link che abbiamo passato al request, e passarlo a cheerio.load()
+3.inserirlo in una const $, che contiene dei metodi
+4.prendere tutti gli <a> che contengono la keyword che ci serve, e salviamo il loro testo e il link -> vedi file
+5.ogni sito é diverso, scegliere pagine compatibili con la nostra funzione
+--ad esempio il valore "base" di ogni nostro newspaper obj serve perché in alcune pagine gli href possono essere scritti senza la radice del link, tornando link non funzionanti; Cosí questi non saranno un piú problema
+6.ognuno di questi verrá inserito in articles, con titolo link e fonte
+7.definire GET request per /news, che torna articles dentro un obj (JSON)
+
+PT2:
+1.GET req dinamica per ogni newspaper
+--il valore specificato ci fará tornare tutti gli articoli di quel sito contenenti la parola album
+
+## MY EXTRAS
+
+get req ad un DB di albums
